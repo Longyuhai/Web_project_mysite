@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <style type="text/css">
+   .ui.segment.container{
+     width:700px;
+   }
+   h1{
+     font-size:40px;
+   }
+   p{
+     font-size:18px;
+   }
+   body{
+     background:url({% static 'images/dali.jpg '%});
+     /* background : urL( ' ../static/images/4.jpg ')*/
+     background-size: cover;
+     background-repeat:no-repeat;
+     background-attachment:fixed;
+   }
+   </style>
+  </head>
+  <body>
+    <div class="ui image">
+      <img src="" alt="">
+    </div>
+    <div class="ui segment padded container">
+      <h1 class="ui header">
+        {{ article.headline}}
+      </h1>
+      <p>
+        {{ article.content }}
+      </p>
+    </div>
+    <div class="ui segment container" style="width:700px;">
+      <h3 class="ui header" style="font-family:'楷体';font-size:30px">评论</h3>
+      <div class="ui comments">
+        
+      {% for comment in article.article_comments.all %}
+
+        <div class="Comment">
+          <div class="avater" style="float:left;width:5%;height:5%">
+            <img src="../static/images/头像.jpg" style="width:100%;height:100%" alt="">
+          </div>
+          <a href="#" class="author">{{ comment.name }}</a>
+          <div class="metadata">
+            <div class="data">
+              2天前
+            </div>
+          </div>
+          <p class="text" style="font-family:'楷体';">{{ comment.comment }}</p>
+        </div>
+          {% endfor %}
+      </div>
+      <div class="ui divider"></div>
+        <form class="ui tiny form" action=""  method="post">
+          {{ form.as_p }}
+          {% csrf_token %}
+          <button type="submit" class="ui blue button" name="button">提交</button>
+        </form>
+    </div>
+  </body>
+</html>

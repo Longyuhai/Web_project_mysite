@@ -1,0 +1,8 @@
+.ui.vertical.basic.segment.masthead{
+  height: 800px;
+  background: url("../static/images/dali1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-left: 40px;
+  padding-right: 40px;
+}

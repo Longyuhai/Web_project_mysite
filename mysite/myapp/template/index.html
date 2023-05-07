@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+  </head>
+  <body>
+    <div class="ui inverted top fixed borderless menu">
+      <div class="right menu">
+        {% if request.user.is_authenticated %}
+        <div class="item">
+          <h5 class='ui inverted header'>
+            <span style="margin-right">{{ request.user.username }}</span>
+            <div class="ui mini circular image">
+              {% if request.user.profile.profile_image %}
+              <img src="../upload/{{ request.user.profile.profile_image }}" alt="">
+              {% else %}
+              <img src="{% static 'images/头像.jpg' %}" alt="">
+              {% endif %}
+            </div>
+          </h5>
+          <div class="item">
+            <a href="{% url 'logout' %}" class="ui inverted circular button">退出登录</a>
+          </div>
+          {% else %}
+          <div class="item">
+            <a href="#" class="ui inverted circular button">登录</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div id="header" class="ui vertical inverted basic segment masthead">
+      <div class="ui inverted text menu">
+        <div class="ui image">
+          <img src="../static/images/dali1.jpg" alt="">
+        </div>
+      </div>
+      <h1 class="ui header center aligned slogn inverted">
+      目光所及皆是广袤天空
+      <p class="sub header">夜色难免黑凉，前行必有曙光</p>
+      <button type="button" name="button" class="ui blue circular button">我的博客
+      </button>
+      </h1>
+    </div>
+
+    <div class="ui container nav">
+      <div class="ui borderless text three item menu">
+      <div class="ui simple dropdown item">
+        类别
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="?tag=科技">科技</a>
+          <a class="item" href="?tag=生活">生活</a>
+        </div>
+      </div>
+      <a class="item" href="#">热点</a>
+      <a class="item" href="#">关于</a>
+    </div>
+    </div>
+
+    <div class="ui inverted blue vertical very padded segment">
+    {% for article in article_list %}
+      <div class="ui container segment">
+        <a href="{% url 'detail' article.id %}">
+        <h1 class="ui header">{{ article.headline }}</h1>
+        </a>
+        <p>{{ article.context|slice:100 }}...</p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="ui center aligned very padded vertical segment container">
+        <div class="ui pagination menu">
+      {% if article_list.has_previous %}
+          <a href="?page={{ article_list.previous_page_number }}" class="item">
+          <i style="color:red">上一页</i>
+          </a>
+      {% else %}
+      <a href="?page{{ article_list.start_index }}" class="disabled item">
+      <i>上一页</i>
+      </a>
+      {% endif %}
+      {% if article_list.has_next %}
+          <a href="?page{{ article_list.next_page_number }}" class="item">
+          <i style="color:red">下一页</i>
+          </a>
+      {% else %}
+      <a href="?page{{ article_list.end_index }}" class="disabled item">
+      <i>下一页</i>
+      {% endif %}
+        </div>
+      </div>
+
+      <div class="ui inverted vertical segnent">
+        持续更新中......
+      </div>
+    </body>
+</html>

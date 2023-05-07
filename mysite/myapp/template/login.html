@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+      .ui.segment.container{
+        /* background: url("{% static 'images/bannerground.jpg' %}"); */
+        width:600px;
+        height:500px;
+        transform:translate(-50%,-50%);
+        position:absolute;
+        left:50%;
+        top:50%;
+        text-align:center;
+      }
+      h1{
+        font-size:40px;
+      }
+      p{
+        font-size:24px;
+      }
+      body{
+        background: url("{% static 'images/bannerground.jpg' %}");
+        background-size:cover;
+        background-repeat:no-repead;
+        background-attachment:fixed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ui center segment padded container">
+      <h1 style="align:center">用户登录</h1>
+      <form class=""  method="post">
+        {% for field in form %}
+        <p>
+          {{ field.name }}
+          {{ field }}
+        </p>
+          {{ field.errors }}
+          {% endfor %}
+          {% csrf_token %}
+        <button type="submit" class="ui blue button" name="button">登录/注册</button>
+      </form>
+    </div>
+  </body>
+</html>
